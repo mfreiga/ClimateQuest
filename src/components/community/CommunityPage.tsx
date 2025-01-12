@@ -1,13 +1,10 @@
 import { Card } from "@/components/ui/card";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Users, TreePine, Trophy } from "lucide-react";
+import Navigation from "@/components/ui/navigation";
 
 const CommunityPage = () => {
-  const navigate = useNavigate();
-
   const communities = [
     {
       id: 1,
@@ -37,43 +34,7 @@ const CommunityPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-teal-900">
-      <nav className="container mx-auto px-4 py-6 flex items-center">
-        <button className="text-white mr-4" onClick={() => navigate(-1)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <Link
-          to="/"
-          className="text-2xl font-bold text-white hover:text-gray-300"
-        >
-          CLIMATEQUEST
-        </Link>
-        <div className="flex-1 flex justify-end items-center gap-8">
-          <Link to="/challenges" className="text-white hover:text-gray-300">
-            Challenges
-          </Link>
-          <Link to="/dashboard" className="text-white hover:text-gray-300">
-            Dashboard
-          </Link>
-          <Link to="/community" className="text-white hover:text-gray-300">
-            Community
-          </Link>
-          <Link to="/about" className="text-white hover:text-gray-300">
-            About Us
-          </Link>
-        </div>
-      </nav>
+      <Navigation showLogin={false} />
 
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-white text-center mb-16">

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Trophy, Leaf, TreePine } from "lucide-react";
+import { useUser } from "@/lib/contexts/UserContext";
 
 interface FriendData {
   id: string;
@@ -19,14 +20,6 @@ interface FriendLeaderboardProps {
 }
 
 const defaultFriends: FriendData[] = [
-  {
-    id: "1",
-    name: "Emma Green",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
-    score: 2500,
-    rank: 1,
-    treesPlanted: 15,
-  },
   {
     id: "2",
     name: "James River",
@@ -65,6 +58,8 @@ const FriendLeaderboard = ({
   friends = defaultFriends,
   onPlantTree = () => console.log("Plant tree clicked"),
 }: FriendLeaderboardProps) => {
+  const { currentUser } = useUser();
+
   return (
     <Card className="w-[300px] bg-white">
       <CardHeader className="pb-4">
@@ -77,6 +72,32 @@ const FriendLeaderboard = ({
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
+          {/* Current User */}
+          <div className="bg-green-50 p-2 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="w-5 text-sm font-semibold text-green-600">
+                  #{currentUser.rank}
+                </span>
+                <Avatar>
+                  <AvatarImage
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                  />
+                  <AvatarFallback>{currentUser.name[0]}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-medium">{currentUser.name}</p>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Leaf className="w-3 h-3" />
+                    <span>{currentUser.score} points</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Friends List */}
           <div className="space-y-4">
             {friends.map((friend) => (
               <div

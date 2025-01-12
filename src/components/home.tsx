@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Leaf, TreePine, Droplet } from "lucide-react";
+import {
+  Leaf,
+  TreePine,
+  Droplet,
+  Globe2,
+  Cloud,
+  Sun,
+  Wind,
+} from "lucide-react";
 import Navigation from "./ui/navigation";
 import { useNavigate } from "react-router-dom";
 
@@ -8,10 +16,10 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-teal-900">
-      <Navigation />
+      <Navigation showBack={false} />
 
-      <main className="container mx-auto px-4 flex min-h-[calc(100vh-80px)]">
-        <div className="flex-1 flex flex-col justify-center max-w-xl py-20">
+      <main className="container mx-auto px-4 flex min-h-[calc(100vh-80px)] items-start">
+        <div className="flex-1 flex flex-col justify-start max-w-xl pt-32">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-1 w-20 bg-green-500"></div>
             <span className="text-green-400 font-medium">
@@ -73,13 +81,46 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="flex-1 flex items-center justify-center relative">
+        <div className="flex-1 flex items-start justify-center relative pt-20">
           <div className="absolute inset-0 bg-gradient-to-br from-green-500/30 to-blue-500/30 rounded-full blur-3xl"></div>
-          <img
-            src="/earth-illustration.png"
-            alt="Earth Illustration"
-            className="w-[700px] h-[700px] object-contain relative z-10"
-          />
+          <div className="relative z-10 w-[600px] h-[600px] flex items-center justify-center">
+            {/* Main Globe */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Globe2 className="w-96 h-96 text-teal-400/80" />
+            </div>
+
+            {/* Floating Elements */}
+            <div className="absolute top-20 left-20 animate-bounce">
+              <Cloud className="w-16 h-16 text-blue-400/80" />
+            </div>
+            <div
+              className="absolute bottom-32 right-24 animate-bounce"
+              style={{ animationDelay: "0.5s" }}
+            >
+              <Cloud className="w-12 h-12 text-blue-400/80" />
+            </div>
+            <div className="absolute top-32 right-24 animate-pulse">
+              <Sun className="w-20 h-20 text-yellow-400/80" />
+            </div>
+            <div
+              className="absolute bottom-24 left-32 animate-pulse"
+              style={{ animationDelay: "0.7s" }}
+            >
+              <TreePine className="w-24 h-24 text-green-400/80" />
+            </div>
+            <div
+              className="absolute top-1/2 right-16 animate-pulse"
+              style={{ animationDelay: "0.3s" }}
+            >
+              <TreePine className="w-16 h-16 text-green-400/80" />
+            </div>
+            <div
+              className="absolute top-40 left-1/2 animate-pulse"
+              style={{ animationDelay: "0.9s" }}
+            >
+              <Wind className="w-16 h-16 text-white/50" />
+            </div>
+          </div>
         </div>
       </main>
     </div>

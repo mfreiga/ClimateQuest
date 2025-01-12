@@ -1,55 +1,97 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "./button";
-import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from "react-router-dom";
+import { TreePine, ArrowLeft } from "lucide-react";
 
 interface NavigationProps {
-  showLogin?: boolean;
   showBack?: boolean;
+  showLogin?: boolean;
 }
 
-const Navigation = ({ showLogin = true, showBack = true }: NavigationProps) => {
+const Navigation = ({ showBack = true, showLogin = true }: NavigationProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  const handleSignOut = () => {
+    // In a real app, this would handle sign out logic
+    navigate("/");
+  };
 
   return (
-    <nav className="container mx-auto px-4 py-6 flex items-center">
-      {showBack && (
-        <button
-          className="text-white mr-4 hover:text-gray-300"
-          onClick={() => navigate(-1)}
-        >
-          <ArrowLeft className="w-6 h-6" />
-        </button>
-      )}
-      <Link
-        to="/"
-        className="text-2xl font-bold text-white hover:text-gray-300"
-      >
-        CLIMATEQUEST
-      </Link>
-      <div className="flex-1 flex justify-end items-center gap-8">
-        <Link to="/challenges" className="text-white hover:text-gray-300">
-          Challenges
-        </Link>
-        <Link to="/community" className="text-white hover:text-gray-300">
-          Community
-        </Link>
-        <Link to="/dashboard" className="text-white hover:text-gray-300">
-          Dashboard
-        </Link>
-        <Link to="/faq" className="text-white hover:text-gray-300">
-          FAQ
-        </Link>
-        <Link to="/about" className="text-white hover:text-gray-300">
-          About Us
-        </Link>
-        {showLogin && (
-          <Button
-            variant="outline"
-            className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-slate-900"
-          >
-            Login
-          </Button>
-        )}
+    <nav className="bg-white/10 backdrop-blur-sm border-b border-white/10">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-2">
+            {!isHome && (
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate(-1)}
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+            )}
+            <Button
+              variant="ghost"
+              className="text-white hover:text-white hover:bg-white/10 flex items-center gap-2 text-lg font-semibold"
+              onClick={() => navigate("/")}
+            >
+              ClimateQuest
+              <TreePine className="w-6 h-6" />
+            </Button>
+
+            <div className="hidden md:flex items-center gap-6 ml-6">
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate("/challenges")}
+              >
+                Challenges
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate("/dashboard")}
+              >
+                Dashboard
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate("/faq")}
+              >
+                FAQ
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate("/about")}
+              >
+                About Us
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {showLogin && (
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/10"
+                onClick={() => navigate("/login")}
+              >
+                Sign In
+              </Button>
+            )}
+            {!showLogin && (
+              <Button
+                className="bg-green-600 hover:bg-green-700"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </nav>
   );

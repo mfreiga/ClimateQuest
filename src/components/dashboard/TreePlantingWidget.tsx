@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Card } from "@/components/ui/card";
+import Navigation from "@/components/ui/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { TreePine, Globe2, Trophy } from "lucide-react";
 import FriendLeaderboard from "./FriendLeaderboard";
 
 interface TreePlantingWidgetProps {
@@ -24,25 +25,7 @@ const TreePlantingWidget = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-teal-900">
-      <nav className="container mx-auto px-4 py-6 flex items-center">
-        <Link
-          to="/"
-          className="text-2xl font-bold text-white hover:text-gray-300"
-        >
-          CLIMATEQUEST
-        </Link>
-        <div className="flex-1 flex justify-end items-center gap-8">
-          <Link to="/challenges" className="text-white hover:text-gray-300">
-            Challenges
-          </Link>
-          <Link to="/community" className="text-white hover:text-gray-300">
-            Community
-          </Link>
-          <Link to="/about" className="text-white hover:text-gray-300">
-            About Us
-          </Link>
-        </div>
-      </nav>
+      <Navigation showLogin={false} />
 
       <div className="container mx-auto py-8 px-4">
         <div className="flex gap-8">
@@ -55,87 +38,108 @@ const TreePlantingWidget = ({
               reforestation efforts.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="bg-white p-8 flex flex-col items-center hover:shadow-lg transition-all">
-                <div className="w-32 h-32 mb-6 bg-teal-50 rounded-full p-6">
-                  <img
-                    src="/tree-icon.svg"
-                    alt="Single Tree"
-                    className="w-full h-full"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">1 Tree</h3>
-                <p className="text-gray-500 mb-4 text-center">
-                  Plant a single tree and start your journey
-                </p>
-                <Button
-                  onClick={() => handleDonation(1, 5)}
-                  className="w-full bg-teal-600 hover:bg-teal-700"
-                >
-                  Donate $5
-                </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="p-6">
+                <CardHeader className="px-0 pt-0">
+                  <CardTitle className="flex items-center gap-2">
+                    <TreePine className="w-5 h-5 text-green-500" />
+                    Plant Trees
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-0 space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <Button
+                      variant="outline"
+                      className="p-8 h-auto flex flex-col items-center gap-2"
+                      onClick={() => handleDonation(1, 10)}
+                    >
+                      <TreePine className="w-8 h-8 text-green-500" />
+                      <div className="text-lg font-semibold">1 Tree</div>
+                      <div className="text-sm text-gray-500">$10</div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="p-8 h-auto flex flex-col items-center gap-2"
+                      onClick={() => handleDonation(5, 45)}
+                    >
+                      <div className="flex gap-1">
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                      </div>
+                      <div className="text-lg font-semibold">5 Trees</div>
+                      <div className="text-sm text-gray-500">$45</div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="p-8 h-auto flex flex-col items-center gap-2"
+                      onClick={() => handleDonation(10, 80)}
+                    >
+                      <div className="flex gap-1">
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                      </div>
+                      <div className="text-lg font-semibold">10 Trees</div>
+                      <div className="text-sm text-gray-500">$80</div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="p-8 h-auto flex flex-col items-center gap-2"
+                      onClick={() => handleDonation(20, 150)}
+                    >
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[120px]">
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                        <TreePine className="w-8 h-8 text-green-500" />
+                      </div>
+                      <div className="text-lg font-semibold">20 Trees</div>
+                      <div className="text-sm text-gray-500">$150</div>
+                    </Button>
+                  </div>
+                </CardContent>
               </Card>
 
-              <Card className="bg-white p-8 flex flex-col items-center hover:shadow-lg transition-all border-2 border-teal-500">
-                <div className="w-32 h-32 mb-6 bg-teal-50 rounded-full p-6">
-                  <img
-                    src="/tree-icon.svg"
-                    alt="Five Trees"
-                    className="w-full h-full"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">5 Trees</h3>
-                <p className="text-gray-500 mb-4 text-center">
-                  Most popular choice for making an impact
-                </p>
-                <Button
-                  onClick={() => handleDonation(5, 20)}
-                  className="w-full bg-teal-600 hover:bg-teal-700"
-                >
-                  Donate $20
-                </Button>
-              </Card>
+              <Card className="p-6">
+                <CardHeader className="px-0 pt-0">
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe2 className="w-5 h-5 text-blue-500" />
+                    Your Impact
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-0">
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-5xl font-bold text-green-600 mb-2">
+                        {treesPlanted}
+                      </div>
+                      <p className="text-sm text-gray-500">Trees Planted</p>
+                    </div>
 
-              <Card className="bg-white p-8 flex flex-col items-center hover:shadow-lg transition-all">
-                <div className="w-32 h-32 mb-6 bg-teal-50 rounded-full p-6">
-                  <img
-                    src="/tree-icon.svg"
-                    alt="Ten Trees"
-                    className="w-full h-full"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">10 Trees</h3>
-                <p className="text-gray-500 mb-4 text-center">
-                  Make the biggest impact on our planet
-                </p>
-                <Button
-                  onClick={() => handleDonation(10, 40)}
-                  className="w-full bg-teal-600 hover:bg-teal-700"
-                >
-                  Donate $40
-                </Button>
+                    <div className="text-center p-4 bg-green-50 rounded-lg">
+                      <div className="text-2xl font-semibold text-green-600 mb-1">
+                        {co2Offset} kg
+                      </div>
+                      <p className="text-sm text-gray-500">
+                        CO₂ Offset per Year
+                      </p>
+                    </div>
+
+                    <div className="text-sm text-gray-500">
+                      <p className="mb-2">
+                        <strong>Why Plant Trees?</strong>
+                      </p>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Combat climate change</li>
+                        <li>Restore biodiversity</li>
+                        <li>Support local communities</li>
+                        <li>Improve air quality</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
               </Card>
             </div>
-
-            <Card className="bg-white p-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 className="text-xl font-semibold mb-1">Your Impact</h3>
-                  <p className="text-gray-500">
-                    Track your contribution to reforestation
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-teal-600 mb-1">
-                    {treesPlanted.toString().padStart(3, "0")} Trees
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {co2Offset.toString().padStart(3, "0")} kg CO₂ offset per
-                    year
-                  </p>
-                </div>
-              </div>
-            </Card>
           </div>
 
           <div className="w-[300px]">
