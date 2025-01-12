@@ -10,6 +10,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CarbonTrackerWidgetProps {
   totalCarbon?: number;
@@ -35,7 +44,7 @@ const CarbonTrackerWidget = ({
   const progress = (totalCarbon / maxCarbon) * 100;
 
   return (
-    <Card className="w-[400px] bg-white">
+    <Card className="w-full bg-white">
       <CardHeader>
         <CardTitle className="text-xl flex items-center justify-between">
           Carbon Footprint
@@ -52,18 +61,26 @@ const CarbonTrackerWidget = ({
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Dialog>
             <DialogTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <Home className="w-5 h-5 text-orange-500" />
-                  <span>Home Equipment</span>
-                </div>
-                <span>{categories.homeEquipment} kg</span>
-              </div>
+              <Card className="cursor-pointer hover:bg-gray-50 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-orange-100 rounded-lg">
+                      <Home className="w-6 h-6 text-orange-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Home Equipment</h3>
+                      <p className="text-sm text-gray-500">
+                        {categories.homeEquipment} kg CO₂
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>Home Equipment Impact</DialogTitle>
               </DialogHeader>
@@ -73,15 +90,40 @@ const CarbonTrackerWidget = ({
                   <TabsTrigger value="heat">Heat Pumps</TabsTrigger>
                 </TabsList>
                 <TabsContent value="solar" className="space-y-4">
-                  <div className="p-4 border rounded">
-                    <h4 className="font-medium">Solar Panel Details</h4>
-                    {/* Add solar panel form fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Number of Solar Panels</Label>
+                      <Input
+                        type="number"
+                        placeholder="Enter number of panels"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Average Daily Sun Hours</Label>
+                      <Input type="number" placeholder="Enter sun hours" />
+                    </div>
+                    <Button className="w-full">Calculate Impact</Button>
                   </div>
                 </TabsContent>
                 <TabsContent value="heat" className="space-y-4">
-                  <div className="p-4 border rounded">
-                    <h4 className="font-medium">Heat Pump Details</h4>
-                    {/* Add heat pump form fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Heat Pump Type</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="air">Air Source</SelectItem>
+                          <SelectItem value="ground">Ground Source</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Home Size (sq ft)</Label>
+                      <Input type="number" placeholder="Enter home size" />
+                    </div>
+                    <Button className="w-full">Calculate Impact</Button>
                   </div>
                 </TabsContent>
               </Tabs>
@@ -90,15 +132,23 @@ const CarbonTrackerWidget = ({
 
           <Dialog>
             <DialogTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <Car className="w-5 h-5 text-blue-500" />
-                  <span>Transportation</span>
-                </div>
-                <span>{categories.transport} kg</span>
-              </div>
+              <Card className="cursor-pointer hover:bg-gray-50 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-blue-100 rounded-lg">
+                      <Car className="w-6 h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Transportation</h3>
+                      <p className="text-sm text-gray-500">
+                        {categories.transport} kg CO₂
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>Transportation Impact</DialogTitle>
               </DialogHeader>
@@ -108,15 +158,48 @@ const CarbonTrackerWidget = ({
                   <TabsTrigger value="trips">Upcoming Trips</TabsTrigger>
                 </TabsList>
                 <TabsContent value="daily" className="space-y-4">
-                  <div className="p-4 border rounded">
-                    <h4 className="font-medium">Daily Transportation</h4>
-                    {/* Add daily commute form fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Transportation Method</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select method" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="car">Car</SelectItem>
+                          <SelectItem value="bus">Bus</SelectItem>
+                          <SelectItem value="train">Train</SelectItem>
+                          <SelectItem value="bike">Bicycle</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Daily Distance (km)</Label>
+                      <Input type="number" placeholder="Enter distance" />
+                    </div>
+                    <Button className="w-full">Calculate Impact</Button>
                   </div>
                 </TabsContent>
                 <TabsContent value="trips" className="space-y-4">
-                  <div className="p-4 border rounded">
-                    <h4 className="font-medium">Trip Details</h4>
-                    {/* Add trip planning form fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Trip Type</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="flight">Flight</SelectItem>
+                          <SelectItem value="train">Train</SelectItem>
+                          <SelectItem value="bus">Bus</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Distance (km)</Label>
+                      <Input type="number" placeholder="Enter distance" />
+                    </div>
+                    <Button className="w-full">Calculate Impact</Button>
                   </div>
                 </TabsContent>
               </Tabs>
@@ -125,42 +208,100 @@ const CarbonTrackerWidget = ({
 
           <Dialog>
             <DialogTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <ShoppingBag className="w-5 h-5 text-green-500" />
-                  <span>Supermarket Choice</span>
-                </div>
-                <span>{categories.shopping} kg</span>
-              </div>
+              <Card className="cursor-pointer hover:bg-gray-50 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-green-100 rounded-lg">
+                      <ShoppingBag className="w-6 h-6 text-green-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Supermarket Choice</h3>
+                      <p className="text-sm text-gray-500">
+                        {categories.shopping} kg CO₂
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>Shopping Impact</DialogTitle>
               </DialogHeader>
-              <div className="p-4 border rounded">
-                <h4 className="font-medium">Shopping Habits</h4>
-                {/* Add shopping habits form fields */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Shopping Type</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="organic">Organic Products</SelectItem>
+                      <SelectItem value="conventional">
+                        Conventional Products
+                      </SelectItem>
+                      <SelectItem value="mixed">Mixed Shopping</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>Monthly Grocery Budget ($)</Label>
+                  <Input type="number" placeholder="Enter amount" />
+                </div>
+                <Button className="w-full">Calculate Impact</Button>
               </div>
             </DialogContent>
           </Dialog>
 
           <Dialog>
             <DialogTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <Recycle className="w-5 h-5 text-purple-500" />
-                  <span>Waste Management</span>
-                </div>
-                <span>{categories.waste} kg</span>
-              </div>
+              <Card className="cursor-pointer hover:bg-gray-50 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-purple-100 rounded-lg">
+                      <Recycle className="w-6 h-6 text-purple-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Waste Management</h3>
+                      <p className="text-sm text-gray-500">
+                        {categories.waste} kg CO₂
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>Waste Management</DialogTitle>
               </DialogHeader>
-              <div className="p-4 border rounded">
-                <h4 className="font-medium">Recycling & Waste</h4>
-                {/* Add waste management form fields */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Recycling Percentage</Label>
+                  <Input type="number" placeholder="Enter percentage" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Waste Type Distribution</Label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Organic Waste (%)</Label>
+                      <Input type="number" placeholder="Enter percentage" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Plastic (%)</Label>
+                      <Input type="number" placeholder="Enter percentage" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Paper (%)</Label>
+                      <Input type="number" placeholder="Enter percentage" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Glass (%)</Label>
+                      <Input type="number" placeholder="Enter percentage" />
+                    </div>
+                  </div>
+                </div>
+                <Button className="w-full">Calculate Impact</Button>
               </div>
             </DialogContent>
           </Dialog>

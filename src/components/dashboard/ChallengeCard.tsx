@@ -31,7 +31,7 @@ const ChallengeCard = ({
   onJoin = () => console.log("Join challenge clicked"),
 }: ChallengeCardProps) => {
   return (
-    <Card className="w-[250px] h-[180px] bg-white hover:shadow-lg transition-shadow border-2 hover:border-green-500">
+    <Card className="w-full bg-white hover:shadow-lg transition-shadow border-2 hover:border-green-500">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold truncate">

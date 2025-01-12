@@ -1,9 +1,35 @@
-import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Card } from "@/components/ui/card";
+import { Leaf, Droplet, TreePine } from "lucide-react";
+import ChallengeGrid from "../dashboard/ChallengeGrid";
 
 const ChallengesPage = () => {
   const navigate = useNavigate();
+
+  const challenges = [
+    {
+      title: "Carbon Footprint",
+      description: "Track and reduce your CO2 emissions",
+      icon: <Leaf className="w-8 h-8 text-green-500" />,
+      path: "/challenges/carbon",
+      color: "bg-green-100",
+    },
+    {
+      title: "Water Consumption",
+      description: "Monitor and optimize your water usage",
+      icon: <Droplet className="w-8 h-8 text-blue-500" />,
+      path: "/challenges/water",
+      color: "bg-blue-100",
+    },
+    {
+      title: "Plant Trees",
+      description: "Contribute to global reforestation efforts",
+      icon: <TreePine className="w-8 h-8 text-teal-500" />,
+      path: "/challenges/trees",
+      color: "bg-teal-100",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-teal-900">
@@ -33,9 +59,6 @@ const ChallengesPage = () => {
           <Link to="/challenges" className="text-white hover:text-gray-300">
             Challenges
           </Link>
-          <Link to="/dashboard" className="text-white hover:text-gray-300">
-            Dashboard
-          </Link>
           <Link to="/community" className="text-white hover:text-gray-300">
             Community
           </Link>
@@ -45,106 +68,45 @@ const ChallengesPage = () => {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="flex items-center mb-8">
-          <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mr-4">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 7L10 17L5 12"
-                stroke="#000"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-white">Leaderboards</h2>
-          <div className="ml-auto flex items-center gap-2">
-            <div className="bg-white rounded-full px-4 py-1 text-lg font-bold">
-              9999
-            </div>
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="10" fill="#FFD700" />
-                <text
-                  x="12"
-                  y="16"
-                  textAnchor="middle"
-                  fill="#000"
-                  fontSize="12"
-                  fontWeight="bold"
+      <div className="container mx-auto py-8 px-4">
+        <div className="space-y-12">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">Challenges</h1>
+            <p className="text-white/80 mb-8">
+              Choose a challenge category to start making an impact
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {challenges.map((challenge) => (
+                <Card
+                  key={challenge.title}
+                  className="p-6 cursor-pointer hover:shadow-lg transition-all"
+                  onClick={() => navigate(challenge.path)}
                 >
-                  1
-                </text>
-              </svg>
+                  <div className="flex flex-col items-center text-center">
+                    <div className={`p-4 rounded-full ${challenge.color} mb-4`}>
+                      {challenge.icon}
+                    </div>
+                    <h2 className="text-xl font-semibold mb-2">
+                      {challenge.title}
+                    </h2>
+                    <p className="text-gray-500">{challenge.description}</p>
+                  </div>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
 
-        <h1 className="text-4xl font-bold text-white text-center mb-16">
-          Add your friends, reduce together, Impact forever!
-        </h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <Card
-            className="p-8 flex flex-col items-center justify-center bg-white/90 backdrop-blur hover:bg-white transition-colors cursor-pointer"
-            onClick={() => navigate("/dashboard")}
-          >
-            <div className="w-24 h-24 mb-4">
-              <img
-                src="/footprint-icon.svg"
-                alt="Carbon Footprint"
-                className="w-full h-full"
-              />
-            </div>
-            <h3 className="text-xl font-semibold text-center">
-              My Carbon - Footprint
-            </h3>
-          </Card>
-
-          <Card
-            className="p-8 flex flex-col items-center justify-center bg-white/90 backdrop-blur hover:bg-white transition-colors cursor-pointer"
-            onClick={() => navigate("/dashboard")}
-          >
-            <div className="w-24 h-24 mb-4">
-              <img
-                src="/water-icon.svg"
-                alt="Water Consumption"
-                className="w-full h-full"
-              />
-            </div>
-            <h3 className="text-xl font-semibold text-center">
-              Water Consumption
-            </h3>
-          </Card>
-
-          <Card
-            className="p-8 flex flex-col items-center justify-center bg-white/90 backdrop-blur hover:bg-white transition-colors cursor-pointer"
-            onClick={() => navigate("/dashboard")}
-          >
-            <div className="w-24 h-24 mb-4">
-              <img
-                src="/tree-icon.svg"
-                alt="Planting Trees"
-                className="w-full h-full"
-              />
-            </div>
-            <h3 className="text-xl font-semibold text-center">
-              Planting Trees
-            </h3>
-          </Card>
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Active Monthly Challenges
+            </h2>
+            <p className="text-white/80 mb-6">
+              Join these challenges to earn extra points and make a bigger
+              impact
+            </p>
+            <ChallengeGrid />
+          </div>
         </div>
       </div>
     </div>

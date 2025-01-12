@@ -1,26 +1,27 @@
-import { Suspense } from "react";
-import { useRoutes, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/home";
-import DashboardLayout from "./components/dashboard/DashboardLayout";
 import ChallengesPage from "./components/challenges/ChallengesPage";
+import CarbonFootprint from "./components/carbon/CarbonFootprint";
+import WaterConsumptionWidget from "./components/dashboard/WaterConsumptionWidget";
+import TreePlantingWidget from "./components/dashboard/TreePlantingWidget";
 import CommunityPage from "./components/community/CommunityPage";
 import AboutPage from "./components/about/AboutPage";
-import routes from "tempo-routes";
+import DashboardLayout from "./components/dashboard/DashboardLayout";
+import FAQPage from "./components/faq/FAQPage";
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/challenges" element={<ChallengesPage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      </>
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<DashboardLayout />} />
+      <Route path="/challenges" element={<ChallengesPage />} />
+      <Route path="/challenges/carbon" element={<CarbonFootprint />} />
+      <Route path="/challenges/water" element={<WaterConsumptionWidget />} />
+      <Route path="/challenges/trees" element={<TreePlantingWidget />} />
+      <Route path="/community" element={<CommunityPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/faq" element={<FAQPage />} />
+    </Routes>
   );
 }
 
