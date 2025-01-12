@@ -16,28 +16,24 @@ import MembershipLevels from "./components/auth/MembershipLevels";
 
 function App() {
   return (
-    <>
-      <UserProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<SignUpPage />} />
-          <Route path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/challenges" element={<ChallengesPage />} />
-          <Route path="/challenges/carbon" element={<CarbonFootprint />} />
-          <Route
-            path="/challenges/water"
-            element={<WaterConsumptionWidget />}
-          />
-          <Route path="/challenges/trees" element={<TreePlantingWidget />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/membership" element={<MembershipLevels />} />
-        </Routes>
-        <ChatWidget />
-      </UserProvider>
-    </>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<SignUpPage />} />
+        <Route path="/dashboard" element={<DashboardLayout />} />
+        <Route path="/challenges" element={<ChallengesPage />} />
+        <Route path="/challenges/carbon" element={<CarbonFootprint />} />
+        <Route path="/challenges/water" element={<WaterConsumptionWidget />} />
+        <Route path="/challenges/trees" element={<TreePlantingWidget />} />
+        <Route path="/community" element={<CommunityPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/membership" element={<MembershipLevels />} />
+        <Route path="*" element={<Home />} /> {/* Add catch-all route */}
+      </Routes>
+      <ChatWidget />
+    </UserProvider>
   );
 }
 
