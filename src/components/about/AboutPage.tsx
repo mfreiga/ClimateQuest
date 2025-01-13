@@ -1,6 +1,6 @@
 import Navigation from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
-import { TreePine, Users, Trophy, Leaf } from "lucide-react";
+import { TreePine, Users, Trophy, Leaf, Crown } from "lucide-react";
 
 const AboutPage = () => {
   const stats = [
@@ -95,12 +95,13 @@ const AboutPage = () => {
             </div>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-12 flex justify-center">
             <Button
               size="lg"
-              className="bg-green-600 hover:bg-green-700 text-lg px-10 py-6"
-              onClick={() => (window.location.href = "/login")}
+              className="bg-yellow-500 hover:bg-yellow-600 text-lg px-10 py-6 flex items-center gap-2"
+              onClick={() => (window.location.href = "/membership")}
             >
+              <Crown className="w-5 h-5" />
               Join the Movement
             </Button>
           </div>
