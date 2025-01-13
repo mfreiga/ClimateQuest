@@ -99,7 +99,7 @@ const AboutPage = () => {
             <Button
               size="lg"
               className="bg-green-600 hover:bg-green-700 text-lg px-10 py-6"
-              onClick={() => (window.location.href = "/dashboard")}
+              onClick={() => (window.location.href = "/login")}
             >
               Join the Movement
             </Button>
