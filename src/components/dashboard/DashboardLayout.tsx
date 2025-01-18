@@ -1,5 +1,4 @@
 import Navigation from "@/components/ui/navigation";
-import CarbonTrackerWidget from "./CarbonTrackerWidget";
 import AddFriends from "./AddFriends";
 import ChallengeGrid from "./ChallengeGrid";
 import { Progress } from "@/components/ui/progress";
@@ -96,7 +95,6 @@ function DashboardLayout() {
 
             <div className="space-y-6">
               <ChallengeGrid />
-              <CarbonTrackerWidget />
             </div>
           </div>
 
